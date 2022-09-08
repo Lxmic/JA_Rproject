@@ -3,10 +3,22 @@ title: "JA_project"
 description: |
   JA_project
 output_dir: "docs"
+base_url: https://othlis.com/
+repository_url: https://github.com/Lxmic/JA_Rproject
 navbar:
+  search: true
   right:
+    - icon: fab-fa-github
+      href: https://github.com/Lxmic/JA_Rproject
+    - icon: fab-fa-twitter
+      href: https://twitter.com/slum0326
+  left:
     - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
+    - text: "code for figures"
+      menu:
+        - text: "figure.1"
+          href: figure1.html
 output: distill::distill_article

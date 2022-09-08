@@ -6,7 +6,21 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2022-09-07T20:20:50+08:00"
+      "last_modified": "2022-09-08T15:22:10+08:00"
+    },
+    {
+      "path": "Figure1.html",
+      "title": "Figure 1",
+      "description": "A new article created using the Distill format.\n",
+      "author": [
+        {
+          "name": "Jianfeng Jin",
+          "url": "https://othlis.com"
+        }
+      ],
+      "date": "`r Sys.Date()`",
+      "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill for R Markdown at https://rstudio.github.io/distill.\n\n\n\n",
+      "last_modified": "2022-09-08T15:22:10+08:00"
     },
     {
       "path": "index.html",
@@ -14,7 +28,7 @@
       "description": "Welcome to the website. I hope you enjoy it!\n",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2022-09-07T20:20:51+08:00"
+      "last_modified": "2022-09-08T15:22:11+08:00"
     }
   ],
   "collections": []
