@@ -8,9 +8,9 @@ repository_url: https://github.com/Lxmic/JA_Rproject
 navbar:
   search: true
   right:
-    - icon: fab-fa-github
+    - icon: fab fa-github
       href: https://github.com/Lxmic/JA_Rproject
-    - icon: fab-fa-twitter
+    - icon: fab fa-twitter
       href: https://twitter.com/slum0326
   left:
     - text: "Home"
