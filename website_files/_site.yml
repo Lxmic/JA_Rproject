@@ -19,6 +19,6 @@ navbar:
       href: about.html
     - text: "code for figures"
       menu:
-        - text: "figure.1"
+        - text: "figure 1"
           href: figure1.html
 output: distill::distill_article
