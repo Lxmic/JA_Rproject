@@ -88,29 +88,33 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>JA_project: About this site</title>
+  <title>JA_project: time—course</title>
 
-  <meta property="description" itemprop="description" content="Some additional details about the website"/>
+  <meta property="description" itemprop="description" content="JA-response gene clusters"/>
 
 
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-09-12"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-09-12"/>
+  <meta name="article:author" content="Jianfeng Jin"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="JA_project: About this site"/>
+  <meta property="og:title" content="JA_project: time—course"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Some additional details about the website"/>
+  <meta property="og:description" content="JA-response gene clusters"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="JA_project"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="JA_project: About this site"/>
-  <meta property="twitter:description" content="Some additional details about the website"/>
+  <meta property="twitter:title" content="JA_project: time—course"/>
+  <meta property="twitter:description" content="JA-response gene clusters"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description"]}},"value":[{"type":"character","attributes":{},"value":["About this site"]},{"type":"character","attributes":{},"value":["Some additional details about the website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["time—course"]},{"type":"character","attributes":{},"value":["JA-response gene clusters\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Jianfeng Jin"]},{"type":"character","attributes":{},"value":["https://othlis.com"]},{"type":"character","attributes":{},"value":["ZJU"]},{"type":"character","attributes":{},"value":["https://www.zju.edu.cn"]}]}]},{"type":"character","attributes":{},"value":["2022-09-12"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2094,7 +2098,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"About this site","description":"Some additional details about the website","authors":[]}
+{"title":"time—course","description":"JA-response gene clusters","authors":[{"author":"Jianfeng Jin","authorURL":"https://othlis.com","affiliation":"ZJU","affiliationURL":"https://www.zju.edu.cn","orcidID":""}],"publishedDate":"2022-09-12T00:00:00.000+08:00","citationText":"Jin, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2135,15 +2139,199 @@ code for figures
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>About this site</h1>
+<h1>time—course</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Some additional details about the website</p></p>
+<p><p>JA-response gene clusters</p></p>
 </div>
 
+<div class="d-byline">
+  Jianfeng Jin <a href="https://othlis.com" class="uri">https://othlis.com</a> (ZJU)<a href="https://www.zju.edu.cn" class="uri">https://www.zju.edu.cn</a>
+  
+<br/>2022-09-12
+</div>
 
 <div class="d-article">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="载入r包">载入R包</h2>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<h2 id="读取转录组数据">读取转录组数据</h2>
+<p>openxlsx中提供的函数直接读取xlsx表，并且指定sheet以及要读取的列数和行数。</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>All_SL</span> <span class='op'>&lt;-</span> <span class='fu'>read.xlsx</span><span class='op'>(</span>xlsxFile <span class='op'>=</span> <span class='st'>"/Volumes/JJFNVMe/PostDocData/R_projects/JA_Rproject/data/SL_All_expression.xlsx"</span>, sheet <span class='op'>=</span> <span class='fl'>1</span>, cols <span class='op'>=</span> <span class='fl'>6</span><span class='op'>:</span><span class='fl'>35</span>, colNames <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span><span class='va'>All_SP</span> <span class='op'>&lt;-</span> <span class='fu'>read.xlsx</span><span class='op'>(</span>xlsxFile <span class='op'>=</span> <span class='st'>"/Volumes/JJFNVMe/PostDocData/R_projects/JA_Rproject/data/SP_All_Expression.xlsx"</span>, sheet <span class='op'>=</span> <span class='fl'>1</span>, cols <span class='op'>=</span> <span class='fl'>6</span><span class='op'>:</span><span class='fl'>35</span>, colNames <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="三个重复求平均值">三个重复求平均值</h2>
+<h3 id="sp重复样品的均值计算">SP重复样品的均值计算</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>PL_3h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SP</span><span class='op'>[</span><span class='fl'>16</span><span class='op'>:</span><span class='fl'>18</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>PL_6h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SP</span><span class='op'>[</span><span class='fl'>19</span><span class='op'>:</span><span class='fl'>21</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>PL_12h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SP</span><span class='op'>[</span><span class='fl'>22</span><span class='op'>:</span><span class='fl'>24</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>PL_24h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SP</span><span class='op'>[</span><span class='fl'>25</span><span class='op'>:</span><span class='fl'>27</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>PL_72h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SP</span><span class='op'>[</span><span class='fl'>28</span><span class='op'>:</span><span class='fl'>30</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>PJA_3h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SP</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>PJA_6h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SP</span><span class='op'>[</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>PJA_12h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SP</span><span class='op'>[</span><span class='fl'>7</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>PJA_24h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SP</span><span class='op'>[</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>PJA_72h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SP</span><span class='op'>[</span><span class='fl'>13</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h3 id="sl重复样品的均值计算">SL重复样品的均值计算</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>L_3h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SL</span><span class='op'>[</span><span class='fl'>16</span><span class='op'>:</span><span class='fl'>18</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>L_6h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SL</span><span class='op'>[</span><span class='fl'>19</span><span class='op'>:</span><span class='fl'>21</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>L_12h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SL</span><span class='op'>[</span><span class='fl'>22</span><span class='op'>:</span><span class='fl'>24</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>L_24h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SL</span><span class='op'>[</span><span class='fl'>25</span><span class='op'>:</span><span class='fl'>27</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>L_72h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SL</span><span class='op'>[</span><span class='fl'>28</span><span class='op'>:</span><span class='fl'>30</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>JA_3h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SL</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>JA_6h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SL</span><span class='op'>[</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>JA_12h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SL</span><span class='op'>[</span><span class='fl'>7</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>JA_24h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SL</span><span class='op'>[</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>JA_72h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>All_SL</span><span class='op'>[</span><span class='fl'>13</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='va'>mean</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="构建新的sp和sl数据集">构建新的SP和SL数据集</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>SP</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='va'>PL_3h</span>,<span class='va'>PJA_3h</span>,<span class='va'>PL_6h</span>,<span class='va'>PJA_6h</span>,<span class='va'>PL_12h</span>,<span class='va'>PJA_12h</span>,<span class='va'>PL_24h</span>,<span class='va'>PJA_24h</span>,<span class='va'>PL_72h</span>,<span class='va'>PJA_72h</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>SL</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='va'>L_3h</span>,<span class='va'>JA_3h</span>,<span class='va'>L_6h</span>,<span class='va'>JA_6h</span>,<span class='va'>L_12h</span>,<span class='va'>JA_12h</span>,<span class='va'>L_24h</span>,<span class='va'>JA_24h</span>,<span class='va'>L_72h</span>,<span class='va'>JA_72h</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="重命名colnames">重命名colnames</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>newSP</span> <span class='op'>&lt;-</span> <span class='va'>SP</span> <span class='op'>%&gt;%</span> <span class='fu'>rename</span><span class='op'>(</span>CK_3h <span class='op'>=</span> <span class='va'>PL_3h</span>, JA_3h <span class='op'>=</span> <span class='va'>PJA_3h</span>,CK_6h <span class='op'>=</span> <span class='va'>PL_6h</span>, JA_6h <span class='op'>=</span> <span class='va'>PJA_6h</span>,CK_12h <span class='op'>=</span> <span class='va'>PL_12h</span>, JA_12h <span class='op'>=</span> <span class='va'>PJA_12h</span>, CK_24h <span class='op'>=</span> <span class='va'>PL_24h</span>, JA_24h <span class='op'>=</span> <span class='va'>PJA_24h</span>, CK_72h <span class='op'>=</span> <span class='va'>PL_72h</span>, JA_72 <span class='op'>=</span> <span class='va'>PJA_72h</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>newSL</span> <span class='op'>&lt;-</span> <span class='va'>SL</span> <span class='op'>%&gt;%</span> <span class='fu'>rename</span><span class='op'>(</span>CK_3h <span class='op'>=</span> <span class='va'>L_3h</span>, CK_6h <span class='op'>=</span> <span class='va'>L_6h</span>, CK_12h <span class='op'>=</span> <span class='va'>L_12h</span>, CK_24h <span class='op'>=</span> <span class='va'>L_24h</span>,  CK_72h <span class='op'>=</span> <span class='va'>L_72h</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="构建expressionset对象">构建<code>ExpressionSet</code>对象</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>SPM</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>newSP</span><span class='op'>)</span></span>
+<span><span class='va'>SLM</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>newSL</span><span class='op'>)</span></span>
+<span><span class='va'>eSPM</span> <span class='op'>&lt;-</span> <span class='fu'>new</span><span class='op'>(</span><span class='st'>"ExpressionSet"</span>, exprs <span class='op'>=</span> <span class='va'>SPM</span><span class='op'>)</span></span>
+<span><span class='va'>eSLM</span> <span class='op'>&lt;-</span> <span class='fu'>new</span><span class='op'>(</span><span class='st'>"ExpressionSet"</span>, exprs <span class='op'>=</span> <span class='va'>SLM</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="处理缺失值或者异常值">处理缺失值或者异常值</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSPM</span> <span class='op'>&lt;-</span> <span class='fu'>filter.NA</span><span class='op'>(</span><span class='va'>eSPM</span>, thres <span class='op'>=</span> <span class='fl'>0.25</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>0 genes excluded.</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSLM</span> <span class='op'>&lt;-</span> <span class='fu'>filter.NA</span><span class='op'>(</span><span class='va'>eSLM</span>, thres <span class='op'>=</span> <span class='fl'>0.25</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>0 genes excluded.</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSPM.f</span> <span class='op'>&lt;-</span> <span class='fu'>fill.NA</span><span class='op'>(</span><span class='va'>eSPM</span>, mode <span class='op'>=</span> <span class='st'>'mean'</span><span class='op'>)</span></span>
+<span><span class='va'>eSLM.f</span> <span class='op'>&lt;-</span> <span class='fu'>fill.NA</span><span class='op'>(</span><span class='va'>eSLM</span>, mode <span class='op'>=</span> <span class='st'>'mean'</span><span class='op'>)</span> </span>
+<span><span class='va'>eSPM.d</span> <span class='op'>&lt;-</span> <span class='fu'>filter.std</span><span class='op'>(</span><span class='va'>eSPM.f</span>, min.std <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>171 genes excluded.</code></pre>
+<img src="mfuzz_files/figure-html5/unnamed-chunk-8-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSLM.d</span> <span class='op'>&lt;-</span> <span class='fu'>filter.std</span><span class='op'>(</span><span class='va'>eSLM.f</span>, min.std <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>156 genes excluded.</code></pre>
+<p><img src="mfuzz_files/figure-html5/unnamed-chunk-8-2.png" width="624" /></p>
+</div>
+<h2 id="标准化数据">标准化数据</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSPM.s</span> <span class='op'>&lt;-</span> <span class='fu'>standardise</span><span class='op'>(</span><span class='va'>eSPM.d</span><span class='op'>)</span></span>
+<span><span class='va'>eSLM.s</span> <span class='op'>&lt;-</span> <span class='fu'>standardise</span><span class='op'>(</span><span class='va'>eSLM.d</span><span class='op'>)</span></span>
+<span><span class='va'>SP.s</span> <span class='op'>&lt;-</span> <span class='va'>eSPM.s</span><span class='op'>@</span><span class='va'>assayData</span><span class='op'>$</span><span class='va'>exprs</span></span>
+<span><span class='va'>SL.s</span> <span class='op'>&lt;-</span> <span class='va'>eSLM.s</span><span class='op'>@</span><span class='va'>assayData</span><span class='op'>$</span><span class='va'>exprs</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>SP.s</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>       CK_3h       JA_3h      CK_6h      JA_6h     CK_12h      JA_12h
+1 -0.5080864  0.45991931 -0.5080864 -0.5080864 -0.5080864  0.50271350
+2 -0.3162278 -0.31622777 -0.3162278 -0.3162278  2.8460499 -0.31622777
+3 -1.6158102 -0.69347715 -0.5432449 -0.6452622  1.3776899  0.86804921
+4 -1.0979672 -1.02265695 -0.8760610 -0.1888631  1.9060053  0.01313715
+5 -0.8755456 -0.50825268 -0.1743159 -0.4081027  2.3081751  0.30589454
+6 -0.7834191 -0.05514852 -0.7834191 -0.4268133  1.7762084 -0.40511679
+       CK_24h     JA_24h     CK_72h       JA_72
+1 -0.50808640 -0.5080864 -0.5080864  2.59397202
+2 -0.31622777 -0.3162278 -0.3162278 -0.31622777
+3  0.65693690  1.3107699 -0.6218970 -0.09375461
+4  0.01701771  0.9587956 -0.6764881  0.96708073
+5 -0.74946940  0.8961676 -0.9788445  0.18429362
+6 -0.41762752 -0.4204292 -0.4186201  1.93438519</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>SL.s</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>       CK_3h      JA_3h       CK_6h      JA_6h     CK_12h     JA_12h
+1 -0.9732677 -0.9732677  1.10172459 -0.9732677  0.5767281 -0.9732677
+2  0.1245987 -0.1517158 -0.55555143 -0.8488993 -0.3115965 -0.4393387
+3  0.2934248  1.2386088 -0.28367138  1.4567763 -0.5116097  1.0803005
+4 -0.8209884 -0.8209884 -0.09881421 -0.8209884 -0.8209884 -0.8209884
+5 -0.6323496 -1.0344844 -0.26604395 -0.4185251  0.9727621  0.4629423
+6 -0.4742973 -0.4742973 -0.47429730 -0.4742973 -0.4742973 -0.4742973
+      CK_24h     JA_24h      CK_72h     JA_72h
+1  0.6475973  1.7652848  0.13466329 -0.3329271
+2 -0.6517951  2.6740061 -0.08430265  0.2445948
+3 -1.3898316 -1.2753418 -0.35397741 -0.2546786
+4  1.9850916  0.6509709  0.66778116  0.8999124
+5 -0.2928349 -1.2064861  2.12017919  0.2948404
+6 -0.4742973  1.8681826 -0.47429730  1.9261958</code></pre>
+</div>
+<h2 id="计算最佳m值">计算最佳m值</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>SPm</span> <span class='op'>&lt;-</span> <span class='fu'>mestimate</span><span class='op'>(</span><span class='va'>eSPM.s</span><span class='op'>)</span></span>
+<span><span class='va'>SLm</span> <span class='op'>&lt;-</span> <span class='fu'>mestimate</span><span class='op'>(</span><span class='va'>eSLM.s</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="聚类">聚类</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>579</span><span class='op'>)</span></span>
+<span><span class='va'>SPcl</span> <span class='op'>&lt;-</span> <span class='fu'>mfuzz</span><span class='op'>(</span><span class='va'>eSPM.s</span>, c <span class='op'>=</span> <span class='fl'>8</span>, m <span class='op'>=</span> <span class='va'>SPm</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>560</span><span class='op'>)</span></span>
+<span><span class='va'>SLcl</span> <span class='op'>&lt;-</span> <span class='fu'>mfuzz</span><span class='op'>(</span><span class='va'>eSLM.s</span>, c <span class='op'>=</span> <span class='fl'>8</span>, m <span class='op'>=</span> <span class='va'>SLm</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="绘制折线图">绘制折线图</h2>
+<h3 id="sp折线图">SP折线图</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>mycol</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cyan"</span>,<span class='st'>"yellow"</span>,<span class='st'>"orangered"</span><span class='op'>)</span></span>
+<span><span class='va'>mycolor</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span><span class='op'>(</span><span class='va'>mycol</span><span class='op'>)</span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='st'>'mfuzz.onepage.pdf'</span>,h<span class='op'>=</span><span class='fl'>8</span>,w<span class='op'>=</span><span class='fl'>14</span><span class='op'>)</span></span>
+<span><span class='fu'>mfuzz.plot2</span><span class='op'>(</span><span class='va'>eSPM.s</span>, <span class='va'>SPcl</span>, mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>4</span><span class='op'>)</span>,</span>
+<span>           x11  <span class='op'>=</span> <span class='cn'>F</span>,</span>
+<span>           time.labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'CK_3h'</span>,<span class='st'>'JA_3h'</span>,<span class='st'>'CK_6h'</span>,<span class='st'>'JA_6h'</span>,<span class='st'>'CK_12h'</span>,<span class='st'>'JA_12h'</span>,<span class='st'>'CK_24h'</span>,<span class='st'>'JA_24h'</span>,<span class='st'>'CK_72h'</span>,<span class='st'>'JA_72h'</span><span class='op'>)</span>,</span>
+<span>           centre <span class='op'>=</span> <span class='cn'>T</span>,</span>
+<span>           colo <span class='op'>=</span> <span class='va'>mycolor</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>pdf 
+  2 </code></pre>
+</div>
+<h3 id="sl折线图">SL折线图</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='st'>'Slmfuzz.pdf'</span>, h<span class='op'>=</span><span class='fl'>8</span>,w<span class='op'>=</span><span class='fl'>14</span><span class='op'>)</span></span>
+<span><span class='fu'>mfuzz.plot2</span><span class='op'>(</span><span class='va'>eSLM.s</span>, <span class='va'>SLcl</span>, mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>4</span><span class='op'>)</span>,</span>
+<span>           x11  <span class='op'>=</span> <span class='cn'>F</span>,</span>
+<span>           time.labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'CK_3h'</span>,<span class='st'>'JA_3h'</span>,<span class='st'>'CK_6h'</span>,<span class='st'>'JA_6h'</span>,<span class='st'>'CK_12h'</span>,<span class='st'>'JA_12h'</span>,<span class='st'>'CK_24h'</span>,<span class='st'>'JA_24h'</span>,<span class='st'>'CK_72h'</span>,<span class='st'>'JA_72h'</span><span class='op'>)</span>,</span>
+<span>           centre <span class='op'>=</span> <span class='cn'>T</span>,</span>
+<span>           colo <span class='op'>=</span> <span class='va'>mycolor</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>pdf 
+  2 </code></pre>
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

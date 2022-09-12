@@ -1,0 +1,167 @@
+---
+title: "time—course"
+description: |
+  JA-response gene clusters
+author:
+  - name: Jianfeng Jin 
+    url: https://othlis.com
+    affiliation: ZJU
+    affiliation_url: https://www.zju.edu.cn
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## 载入R包
+
+```{r}
+library(Mfuzz)
+library(dplyr)
+library(ggplot2)
+library(rmarkdown)
+library(distill)
+library(tidyverse)
+library(openxlsx)
+library(RColorBrewer)
+```
+
+## 读取转录组数据
+
+openxlsx中提供的函数直接读取xlsx表，并且指定sheet以及要读取的列数和行数。
+
+```{r echo=TRUE}
+All_SL <- read.xlsx(xlsxFile = "/Volumes/JJFNVMe/PostDocData/R_projects/JA_Rproject/data/SL_All_expression.xlsx", sheet = 1, cols = 6:35, colNames = TRUE)
+All_SP <- read.xlsx(xlsxFile = "/Volumes/JJFNVMe/PostDocData/R_projects/JA_Rproject/data/SP_All_Expression.xlsx", sheet = 1, cols = 6:35, colNames = TRUE)
+```
+
+## 三个重复求平均值
+
+### SP重复样品的均值计算
+
+```{r echo=TRUE}
+PL_3h <- apply(All_SP[16:18], 1, mean)
+PL_6h <- apply(All_SP[19:21], 1, mean)
+PL_12h <- apply(All_SP[22:24], 1, mean)
+PL_24h <- apply(All_SP[25:27], 1, mean)
+PL_72h <- apply(All_SP[28:30], 1, mean)
+PJA_3h <- apply(All_SP[1:3], 1, mean)
+PJA_6h <- apply(All_SP[4:6], 1, mean)
+PJA_12h <- apply(All_SP[7:9], 1, mean)
+PJA_24h <- apply(All_SP[10:12], 1, mean)
+PJA_72h <- apply(All_SP[13:15], 1, mean)
+```
+
+### SL重复样品的均值计算
+
+```{r echo=TRUE}
+L_3h <- apply(All_SL[16:18], 1, mean)
+L_6h <- apply(All_SL[19:21], 1, mean)
+L_12h <- apply(All_SL[22:24], 1, mean)
+L_24h <- apply(All_SL[25:27], 1, mean)
+L_72h <- apply(All_SL[28:30], 1, mean)
+JA_3h <- apply(All_SL[1:3], 1, mean)
+JA_6h <- apply(All_SL[4:6], 1, mean)
+JA_12h <- apply(All_SL[7:9], 1, mean)
+JA_24h <- apply(All_SL[10:12], 1, mean)
+JA_72h <- apply(All_SL[13:15], 1, mean)
+```
+
+## 构建新的SP和SL数据集
+
+```{r echo=TRUE}
+SP <- tibble(PL_3h,PJA_3h,PL_6h,PJA_6h,PL_12h,PJA_12h,PL_24h,PJA_24h,PL_72h,PJA_72h)
+
+SL <- tibble(L_3h,JA_3h,L_6h,JA_6h,L_12h,JA_12h,L_24h,JA_24h,L_72h,JA_72h)
+```
+
+## 重命名colnames
+
+```{r echo=TRUE}
+newSP <- SP %>% rename(CK_3h = PL_3h, JA_3h = PJA_3h,CK_6h = PL_6h, JA_6h = PJA_6h,CK_12h = PL_12h, JA_12h = PJA_12h, CK_24h = PL_24h, JA_24h = PJA_24h, CK_72h = PL_72h, JA_72 = PJA_72h)
+
+newSL <- SL %>% rename(CK_3h = L_3h, CK_6h = L_6h, CK_12h = L_12h, CK_24h = L_24h,  CK_72h = L_72h)
+```
+
+## 构建`ExpressionSet`对象
+
+```{r echo=TRUE}
+SPM <- as.matrix(newSP)
+SLM <- as.matrix(newSL)
+eSPM <- new("ExpressionSet", exprs = SPM)
+eSLM <- new("ExpressionSet", exprs = SLM)
+```
+
+## 处理缺失值或者异常值
+
+```{r echo=TRUE}
+eSPM <- filter.NA(eSPM, thres = 0.25)
+eSLM <- filter.NA(eSLM, thres = 0.25)
+eSPM.f <- fill.NA(eSPM, mode = 'mean')
+eSLM.f <- fill.NA(eSLM, mode = 'mean') 
+eSPM.d <- filter.std(eSPM.f, min.std = 0)
+eSLM.d <- filter.std(eSLM.f, min.std = 0)
+```
+
+
+## 标准化数据
+
+```{r echo=TRUE}
+eSPM.s <- standardise(eSPM.d)
+eSLM.s <- standardise(eSLM.d)
+SP.s <- eSPM.s@assayData$exprs
+SL.s <- eSLM.s@assayData$exprs
+head(SP.s)
+head(SL.s)
+```
+
+## 计算最佳m值
+
+```{r echo=TRUE}
+SPm <- mestimate(eSPM.s)
+SLm <- mestimate(eSLM.s)
+```
+
+## 聚类
+
+```{r echo=TRUE}
+set.seed(579)
+SPcl <- mfuzz(eSPM.s, c = 8, m = SPm)
+set.seed(560)
+SLcl <- mfuzz(eSLM.s, c = 8, m = SLm)
+```
+
+## 绘制折线图
+
+### SP折线图
+
+```{r echo=TRUE}
+mycol <- c("cyan","yellow","orangered")
+mycolor <- colorRampPalette(mycol)(100)
+pdf('mfuzz.onepage.pdf',h=8,w=14)
+mfuzz.plot2(eSPM.s, SPcl, mfrow=c(2,4),
+           x11  = F,
+           time.labels=c('CK_3h','JA_3h','CK_6h','JA_6h','CK_12h','JA_12h','CK_24h','JA_24h','CK_72h','JA_72h'),
+           centre = T,
+           colo = mycolor)
+dev.off()
+```
+
+### SL折线图
+
+```{r echo=TRUE}
+pdf('Slmfuzz.pdf', h=8,w=14)
+mfuzz.plot2(eSLM.s, SLcl, mfrow=c(2,4),
+           x11  = F,
+           time.labels=c('CK_3h','JA_3h','CK_6h','JA_6h','CK_12h','JA_12h','CK_24h','JA_24h','CK_72h','JA_72h'),
+           centre = T,
+           colo = mycolor)
+dev.off()
+```
+
+
+
+
+

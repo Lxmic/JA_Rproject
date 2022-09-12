@@ -23,4 +23,6 @@ navbar:
           href: Figure1.html
         - text: "Figure 2"
           href: Figure2.html
+        - text: "mfuzz"
+          href: time-course
 output: distill::distill_article
