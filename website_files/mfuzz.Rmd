@@ -1,5 +1,5 @@
 ---
-title: "time—course"
+title: "mfuzz"
 description: |
   JA-response gene clusters
 author:
