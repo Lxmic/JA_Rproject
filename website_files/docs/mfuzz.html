@@ -2154,14 +2154,25 @@ code for figures
 <div class="d-article">
 <h2 id="载入r包">载入R包</h2>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://mfuzz.sysbiolab.eu/'>Mfuzz</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/rmarkdown'>rmarkdown</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/distill'>distill</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ycphs.github.io/openxlsx/index.html'>openxlsx</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>RColorBrewer</span><span class='op'>)</span></span></code></pre>
+</div>
 </div>
 <h2 id="读取转录组数据">读取转录组数据</h2>
 <p>openxlsx中提供的函数直接读取xlsx表，并且指定sheet以及要读取的列数和行数。</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>All_SL</span> <span class='op'>&lt;-</span> <span class='fu'>read.xlsx</span><span class='op'>(</span>xlsxFile <span class='op'>=</span> <span class='st'>"/Volumes/JJFNVMe/PostDocData/R_projects/JA_Rproject/data/SL_All_expression.xlsx"</span>, sheet <span class='op'>=</span> <span class='fl'>1</span>, cols <span class='op'>=</span> <span class='fl'>6</span><span class='op'>:</span><span class='fl'>35</span>, colNames <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
-<span><span class='va'>All_SP</span> <span class='op'>&lt;-</span> <span class='fu'>read.xlsx</span><span class='op'>(</span>xlsxFile <span class='op'>=</span> <span class='st'>"/Volumes/JJFNVMe/PostDocData/R_projects/JA_Rproject/data/SP_All_Expression.xlsx"</span>, sheet <span class='op'>=</span> <span class='fl'>1</span>, cols <span class='op'>=</span> <span class='fl'>6</span><span class='op'>:</span><span class='fl'>35</span>, colNames <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>All_SL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/openxlsx/man/read.xlsx.html'>read.xlsx</a></span><span class='op'>(</span>xlsxFile <span class='op'>=</span> <span class='st'>"../data/SL_All_expression.xlsx"</span>,</span>
+<span>    sheet <span class='op'>=</span> <span class='fl'>1</span>, cols <span class='op'>=</span> <span class='fl'>6</span><span class='op'>:</span><span class='fl'>35</span>, colNames <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span><span class='va'>All_SP</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/openxlsx/man/read.xlsx.html'>read.xlsx</a></span><span class='op'>(</span>xlsxFile <span class='op'>=</span> <span class='st'>"../data/SP_All_Expression.xlsx"</span>,</span>
+<span>    sheet <span class='op'>=</span> <span class='fl'>1</span>, cols <span class='op'>=</span> <span class='fl'>6</span><span class='op'>:</span><span class='fl'>35</span>, colNames <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="三个重复求平均值">三个重复求平均值</h2>
@@ -2198,17 +2209,24 @@ code for figures
 <h2 id="构建新的sp和sl数据集">构建新的SP和SL数据集</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>SP</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='va'>PL_3h</span>,<span class='va'>PJA_3h</span>,<span class='va'>PL_6h</span>,<span class='va'>PJA_6h</span>,<span class='va'>PL_12h</span>,<span class='va'>PJA_12h</span>,<span class='va'>PL_24h</span>,<span class='va'>PJA_24h</span>,<span class='va'>PL_72h</span>,<span class='va'>PJA_72h</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>SP</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span><span class='va'>PL_3h</span>, <span class='va'>PJA_3h</span>, <span class='va'>PL_6h</span>, <span class='va'>PJA_6h</span>, <span class='va'>PL_12h</span>, <span class='va'>PJA_12h</span>, <span class='va'>PL_24h</span>,</span>
+<span>    <span class='va'>PJA_24h</span>, <span class='va'>PL_72h</span>, <span class='va'>PJA_72h</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>SL</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='va'>L_3h</span>,<span class='va'>JA_3h</span>,<span class='va'>L_6h</span>,<span class='va'>JA_6h</span>,<span class='va'>L_12h</span>,<span class='va'>JA_12h</span>,<span class='va'>L_24h</span>,<span class='va'>JA_24h</span>,<span class='va'>L_72h</span>,<span class='va'>JA_72h</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>SL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span><span class='va'>L_3h</span>, <span class='va'>JA_3h</span>, <span class='va'>L_6h</span>, <span class='va'>JA_6h</span>, <span class='va'>L_12h</span>, <span class='va'>JA_12h</span>, <span class='va'>L_24h</span>,</span>
+<span>    <span class='va'>JA_24h</span>, <span class='va'>L_72h</span>, <span class='va'>JA_72h</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="重命名colnames">重命名colnames</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>newSP</span> <span class='op'>&lt;-</span> <span class='va'>SP</span> <span class='op'>%&gt;%</span> <span class='fu'>rename</span><span class='op'>(</span>CK_3h <span class='op'>=</span> <span class='va'>PL_3h</span>, JA_3h <span class='op'>=</span> <span class='va'>PJA_3h</span>,CK_6h <span class='op'>=</span> <span class='va'>PL_6h</span>, JA_6h <span class='op'>=</span> <span class='va'>PJA_6h</span>,CK_12h <span class='op'>=</span> <span class='va'>PL_12h</span>, JA_12h <span class='op'>=</span> <span class='va'>PJA_12h</span>, CK_24h <span class='op'>=</span> <span class='va'>PL_24h</span>, JA_24h <span class='op'>=</span> <span class='va'>PJA_24h</span>, CK_72h <span class='op'>=</span> <span class='va'>PL_72h</span>, JA_72 <span class='op'>=</span> <span class='va'>PJA_72h</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>newSP</span> <span class='op'>&lt;-</span> <span class='va'>SP</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>CK_3h <span class='op'>=</span> <span class='va'>PL_3h</span>, JA_3h <span class='op'>=</span> <span class='va'>PJA_3h</span>, CK_6h <span class='op'>=</span> <span class='va'>PL_6h</span>, JA_6h <span class='op'>=</span> <span class='va'>PJA_6h</span>,</span>
+<span>        CK_12h <span class='op'>=</span> <span class='va'>PL_12h</span>, JA_12h <span class='op'>=</span> <span class='va'>PJA_12h</span>, CK_24h <span class='op'>=</span> <span class='va'>PL_24h</span>, JA_24h <span class='op'>=</span> <span class='va'>PJA_24h</span>,</span>
+<span>        CK_72h <span class='op'>=</span> <span class='va'>PL_72h</span>, JA_72 <span class='op'>=</span> <span class='va'>PJA_72h</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>newSL</span> <span class='op'>&lt;-</span> <span class='va'>SL</span> <span class='op'>%&gt;%</span> <span class='fu'>rename</span><span class='op'>(</span>CK_3h <span class='op'>=</span> <span class='va'>L_3h</span>, CK_6h <span class='op'>=</span> <span class='va'>L_6h</span>, CK_12h <span class='op'>=</span> <span class='va'>L_12h</span>, CK_24h <span class='op'>=</span> <span class='va'>L_24h</span>,  CK_72h <span class='op'>=</span> <span class='va'>L_72h</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>newSL</span> <span class='op'>&lt;-</span> <span class='va'>SL</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>CK_3h <span class='op'>=</span> <span class='va'>L_3h</span>, CK_6h <span class='op'>=</span> <span class='va'>L_6h</span>, CK_12h <span class='op'>=</span> <span class='va'>L_12h</span>, CK_24h <span class='op'>=</span> <span class='va'>L_24h</span>,</span>
+<span>        CK_72h <span class='op'>=</span> <span class='va'>L_72h</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="构建expressionset对象">构建<code>ExpressionSet</code>对象</h2>
@@ -2223,22 +2241,22 @@ code for figures
 <h2 id="处理缺失值或者异常值">处理缺失值或者异常值</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSPM</span> <span class='op'>&lt;-</span> <span class='fu'>filter.NA</span><span class='op'>(</span><span class='va'>eSPM</span>, thres <span class='op'>=</span> <span class='fl'>0.25</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSPM</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/filter.NA.html'>filter.NA</a></span><span class='op'>(</span><span class='va'>eSPM</span>, thres <span class='op'>=</span> <span class='fl'>0.25</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>0 genes excluded.</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSLM</span> <span class='op'>&lt;-</span> <span class='fu'>filter.NA</span><span class='op'>(</span><span class='va'>eSLM</span>, thres <span class='op'>=</span> <span class='fl'>0.25</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSLM</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/filter.NA.html'>filter.NA</a></span><span class='op'>(</span><span class='va'>eSLM</span>, thres <span class='op'>=</span> <span class='fl'>0.25</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>0 genes excluded.</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSPM.f</span> <span class='op'>&lt;-</span> <span class='fu'>fill.NA</span><span class='op'>(</span><span class='va'>eSPM</span>, mode <span class='op'>=</span> <span class='st'>'mean'</span><span class='op'>)</span></span>
-<span><span class='va'>eSLM.f</span> <span class='op'>&lt;-</span> <span class='fu'>fill.NA</span><span class='op'>(</span><span class='va'>eSLM</span>, mode <span class='op'>=</span> <span class='st'>'mean'</span><span class='op'>)</span> </span>
-<span><span class='va'>eSPM.d</span> <span class='op'>&lt;-</span> <span class='fu'>filter.std</span><span class='op'>(</span><span class='va'>eSPM.f</span>, min.std <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSPM.f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/fill.NA.html'>fill.NA</a></span><span class='op'>(</span><span class='va'>eSPM</span>, mode <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span></span>
+<span><span class='va'>eSLM.f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/fill.NA.html'>fill.NA</a></span><span class='op'>(</span><span class='va'>eSLM</span>, mode <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span></span>
+<span><span class='va'>eSPM.d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/filter.std.html'>filter.std</a></span><span class='op'>(</span><span class='va'>eSPM.f</span>, min.std <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>171 genes excluded.</code></pre>
 <img src="mfuzz_files/figure-html5/unnamed-chunk-8-1.png" width="624" />
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSLM.d</span> <span class='op'>&lt;-</span> <span class='fu'>filter.std</span><span class='op'>(</span><span class='va'>eSLM.f</span>, min.std <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSLM.d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/filter.std.html'>filter.std</a></span><span class='op'>(</span><span class='va'>eSLM.f</span>, min.std <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>156 genes excluded.</code></pre>
 <p><img src="mfuzz_files/figure-html5/unnamed-chunk-8-2.png" width="624" /></p>
@@ -2246,8 +2264,8 @@ code for figures
 <h2 id="标准化数据">标准化数据</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSPM.s</span> <span class='op'>&lt;-</span> <span class='fu'>standardise</span><span class='op'>(</span><span class='va'>eSPM.d</span><span class='op'>)</span></span>
-<span><span class='va'>eSLM.s</span> <span class='op'>&lt;-</span> <span class='fu'>standardise</span><span class='op'>(</span><span class='va'>eSLM.d</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>eSPM.s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/standardise.html'>standardise</a></span><span class='op'>(</span><span class='va'>eSPM.d</span><span class='op'>)</span></span>
+<span><span class='va'>eSLM.s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/standardise.html'>standardise</a></span><span class='op'>(</span><span class='va'>eSLM.d</span><span class='op'>)</span></span>
 <span><span class='va'>SP.s</span> <span class='op'>&lt;-</span> <span class='va'>eSPM.s</span><span class='op'>@</span><span class='va'>assayData</span><span class='op'>$</span><span class='va'>exprs</span></span>
 <span><span class='va'>SL.s</span> <span class='op'>&lt;-</span> <span class='va'>eSLM.s</span><span class='op'>@</span><span class='va'>assayData</span><span class='op'>$</span><span class='va'>exprs</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>SP.s</span><span class='op'>)</span></span></code></pre>
@@ -2287,51 +2305,37 @@ code for figures
 <h2 id="计算最佳m值">计算最佳m值</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>SPm</span> <span class='op'>&lt;-</span> <span class='fu'>mestimate</span><span class='op'>(</span><span class='va'>eSPM.s</span><span class='op'>)</span></span>
-<span><span class='va'>SLm</span> <span class='op'>&lt;-</span> <span class='fu'>mestimate</span><span class='op'>(</span><span class='va'>eSLM.s</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>SPm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/mestimate.html'>mestimate</a></span><span class='op'>(</span><span class='va'>eSPM.s</span><span class='op'>)</span></span>
+<span><span class='va'>SLm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/mestimate.html'>mestimate</a></span><span class='op'>(</span><span class='va'>eSLM.s</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="聚类">聚类</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>579</span><span class='op'>)</span></span>
-<span><span class='va'>SPcl</span> <span class='op'>&lt;-</span> <span class='fu'>mfuzz</span><span class='op'>(</span><span class='va'>eSPM.s</span>, c <span class='op'>=</span> <span class='fl'>8</span>, m <span class='op'>=</span> <span class='va'>SPm</span><span class='op'>)</span></span>
+<span><span class='va'>SPcl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/mfuzz.html'>mfuzz</a></span><span class='op'>(</span><span class='va'>eSPM.s</span>, c <span class='op'>=</span> <span class='fl'>8</span>, m <span class='op'>=</span> <span class='va'>SPm</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>560</span><span class='op'>)</span></span>
-<span><span class='va'>SLcl</span> <span class='op'>&lt;-</span> <span class='fu'>mfuzz</span><span class='op'>(</span><span class='va'>eSLM.s</span>, c <span class='op'>=</span> <span class='fl'>8</span>, m <span class='op'>=</span> <span class='va'>SLm</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>SLcl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/mfuzz.html'>mfuzz</a></span><span class='op'>(</span><span class='va'>eSLM.s</span>, c <span class='op'>=</span> <span class='fl'>8</span>, m <span class='op'>=</span> <span class='va'>SLm</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="绘制折线图">绘制折线图</h2>
 <h3 id="sp折线图">SP折线图</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>mycol</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cyan"</span>,<span class='st'>"yellow"</span>,<span class='st'>"orangered"</span><span class='op'>)</span></span>
-<span><span class='va'>mycolor</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span><span class='op'>(</span><span class='va'>mycol</span><span class='op'>)</span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='st'>'mfuzz.onepage.pdf'</span>,h<span class='op'>=</span><span class='fl'>8</span>,w<span class='op'>=</span><span class='fl'>14</span><span class='op'>)</span></span>
-<span><span class='fu'>mfuzz.plot2</span><span class='op'>(</span><span class='va'>eSPM.s</span>, <span class='va'>SPcl</span>, mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>4</span><span class='op'>)</span>,</span>
-<span>           x11  <span class='op'>=</span> <span class='cn'>F</span>,</span>
-<span>           time.labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'CK_3h'</span>,<span class='st'>'JA_3h'</span>,<span class='st'>'CK_6h'</span>,<span class='st'>'JA_6h'</span>,<span class='st'>'CK_12h'</span>,<span class='st'>'JA_12h'</span>,<span class='st'>'CK_24h'</span>,<span class='st'>'JA_24h'</span>,<span class='st'>'CK_72h'</span>,<span class='st'>'JA_72h'</span><span class='op'>)</span>,</span>
-<span>           centre <span class='op'>=</span> <span class='cn'>T</span>,</span>
-<span>           colo <span class='op'>=</span> <span class='va'>mycolor</span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/mfuzz.plot2.html'>mfuzz.plot2</a></span><span class='op'>(</span><span class='va'>eSPM.s</span>, <span class='va'>SPcl</span>, mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>4</span><span class='op'>)</span>, x11 <span class='op'>=</span> <span class='cn'>FALSE</span>, centre <span class='op'>=</span> <span class='cn'>T</span>,</span>
+<span>    time.labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>eSPM.s</span><span class='op'>)</span>, colo <span class='op'>=</span> <span class='va'>mycolor</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>pdf 
-  2 </code></pre>
+<p><img src="mfuzz_files/figure-html5/unnamed-chunk-13-1.png" width="624" /></p>
 </div>
 <h3 id="sl折线图">SL折线图</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='st'>'Slmfuzz.pdf'</span>, h<span class='op'>=</span><span class='fl'>8</span>,w<span class='op'>=</span><span class='fl'>14</span><span class='op'>)</span></span>
-<span><span class='fu'>mfuzz.plot2</span><span class='op'>(</span><span class='va'>eSLM.s</span>, <span class='va'>SLcl</span>, mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>4</span><span class='op'>)</span>,</span>
-<span>           x11  <span class='op'>=</span> <span class='cn'>F</span>,</span>
-<span>           time.labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'CK_3h'</span>,<span class='st'>'JA_3h'</span>,<span class='st'>'CK_6h'</span>,<span class='st'>'JA_6h'</span>,<span class='st'>'CK_12h'</span>,<span class='st'>'JA_12h'</span>,<span class='st'>'CK_24h'</span>,<span class='st'>'JA_24h'</span>,<span class='st'>'CK_72h'</span>,<span class='st'>'JA_72h'</span><span class='op'>)</span>,</span>
-<span>           centre <span class='op'>=</span> <span class='cn'>T</span>,</span>
-<span>           colo <span class='op'>=</span> <span class='va'>mycolor</span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/Mfuzz/man/mfuzz.plot2.html'>mfuzz.plot2</a></span><span class='op'>(</span><span class='va'>eSLM.s</span>, <span class='va'>SLcl</span>, mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>4</span><span class='op'>)</span>, x11 <span class='op'>=</span> <span class='cn'>FALSE</span>, centre <span class='op'>=</span> <span class='cn'>T</span>,</span>
+<span>    time.labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>eSLM.s</span><span class='op'>)</span>, colo <span class='op'>=</span> <span class='va'>mycolor</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>pdf 
-  2 </code></pre>
+<p><img src="mfuzz_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
