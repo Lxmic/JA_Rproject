@@ -8,11 +8,21 @@ author:
     affiliation: ZJU
     affiliation_url: https://www.zju.edu.cn
 date: "`r Sys.Date()`"
-output: distill::distill_article
+output: 
+  distill::distill_article:
+    toc: true
+    code_folding: FALSE
+    theme: theme.css
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 60), tidy = TRUE)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = TRUE,
+  tidy.opts = list(width.cutoff = 60), 
+  tidy = TRUE
+)
 ```
 
 ## 载入R包
@@ -26,15 +36,18 @@ library(distill)
 library(tidyverse)
 library(openxlsx)
 library(RColorBrewer)
+library(formatR)
 ```
 
 ## 读取转录组数据
 
 openxlsx中提供的函数直接读取xlsx表，并且指定sheet以及要读取的列数和行数。
 
-```{r echo=TRUE}
+```{r, layout = "l-body-outset"}
 All_SL <- read.xlsx(xlsxFile = "../data/SL_All_expression.xlsx", sheet = 1, cols = 6:35, colNames = TRUE)
+paged_table(All_SL)
 All_SP <- read.xlsx(xlsxFile = "../data/SP_All_Expression.xlsx", sheet = 1, cols = 6:35, colNames = TRUE)
+paged_table(All_SP)
 ```
 
 ## 三个重复求平均值
@@ -149,7 +162,7 @@ mfuzz.plot2(eSPM.s, SPcl, mfrow=c(2,4),
 dev.off()
 ```
 
-```{r echo=TRUE}
+```{r, layout="l-body-outset", fig.width = 14, fig.height = 8}
 mfuzz.plot2(eSPM.s,SPcl,mfrow=c(2,4),
            x11 = FALSE,
            centre = T,
@@ -171,7 +184,7 @@ mfuzz.plot2(eSLM.s, SLcl, mfrow=c(2,4),
 dev.off()
 ```
 
-```{r echo=TRUE}
+```{r, layout="l-body-outset", fig.width = 14, fig.height = 8}
 mfuzz.plot2(eSLM.s,SLcl,mfrow=c(2,4),
            x11 = FALSE,
            centre = T,
